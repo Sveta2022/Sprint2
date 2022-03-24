@@ -37,7 +37,6 @@ public class Epic extends Task {
     public String toString() {
         return nameTask + ": " +
                 subtasks;
-
     }
 
     @Override
