@@ -1,16 +1,16 @@
 public class Subtask extends Task {
-    private int idSubtask;
+    private int epicId;
 
     public Subtask(String nameTask) {
         this.nameTask = nameTask;
     }
 
-    public int getIdSubtask() {
-        return idSubtask;
+    public int getEpicId() {
+        return epicId;
     }
 
-    public void setIdSubtask(int idSubtask) {
-        this.idSubtask = idSubtask;
+    public void setEpicId(int epicId) {
+        this.epicId = epicId;
     }
 
     @Override

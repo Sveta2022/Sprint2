@@ -15,43 +15,28 @@ public class Manager {
     public Task createTask(Task task) {
         ++idgeneratot;
         task.setId(idgeneratot);
-        taskList.put(task.getId(), new Task(task.nameTask));
+        taskList.put(task.getId(), task);
         return task;
     }
 
     // 1.2 - создать Задачу с подзадачей;
     public Subtask createSubtask(Subtask subtask) {
         ++idgeneratot;
-        subtask.setIdSubtask(idgeneratot);
-        subtaskList.put(idgeneratot, new Subtask(subtask.nameTask));
+        subtask.setId(idgeneratot);
+        subtaskList.put(idgeneratot, subtask);
+        final Epic epic = epicLists.get(subtask.getEpicId());
+        epic.subtasks.add(subtask);
         return subtask;
     }
 
     public Epic createEpic(Epic epic) {
-        ArrayList<Subtask> subtasks1 = new ArrayList<>();
-        for (int id : subtaskList.keySet()
-        ) {
-            subtasks1.add(subtaskList.get(id));
-        }
         ++idgeneratot;
         epic.setId(idgeneratot);
-        epic.setSubtasks(subtasks1);
-        epicLists.put(epic.id, new Epic(epic.nameTask));
-        subtaskList = new HashMap<>();
+        epicLists.put(epic.id, epic);
         return epic;
     }
+
     // 2 - Получение списка всех задач
-
-    public ArrayList<Task> getTaskList() {
-        ArrayList<Task> task = new ArrayList<>();
-        for (int id : taskList.keySet()
-        ) {
-            Task nameTask = taskList.get(id);
-            task.add(nameTask);
-        }
-        return task;
-    }
-
     public void printTasks() {
         if (taskList.isEmpty()) {
             System.out.println("Список пуст");
@@ -63,12 +48,12 @@ public class Manager {
             }
         }
     }
-
-    public void printEpic(Epic epic) {
-        if (epic.subtasks.isEmpty()) {
+//  2.1 Печать списка всех Эпиков
+    public void printEpic() {
+        if (epicLists.isEmpty()) {
             System.out.println("Список пуст");
         } else {
-            System.out.println(epic);
+            System.out.println(epicLists);
         }
     }
 
@@ -82,6 +67,7 @@ public class Manager {
     }
 
     public void removeAllEpics() {
+        subtaskList.clear();
         epicLists.clear();
     }
 

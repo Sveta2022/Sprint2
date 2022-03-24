@@ -20,17 +20,20 @@ public class Main {
         manager.createTask(task1);
         manager.createTask(task2);
         manager.createTask(task3);
+        manager.createEpic(epic1);
+        subtask1.setEpicId(epic1.getId());
+        subtask2.setEpicId(epic1.getId());
         manager.createSubtask(subtask1);
         manager.createSubtask(subtask2);
-        manager.createEpic(epic1);
+        manager.createEpic(epic2);
+        subtask3.setEpicId(epic2.getId());
+        subtask4.setEpicId(epic2.getId());
         manager.createSubtask(subtask3);
         manager.createSubtask(subtask4);
-        manager.createEpic(epic2);
 //      2.1 Получение списка всех задач.
         System.out.println("Получение списка всех задач.");
         manager.printTasks();
-        manager.printEpic(epic1);
-        manager.printEpic(epic2);
+        manager.printEpic();
         System.out.println();
 //      2.3 Получение по идентификатору.
         System.out.println("Получение по идентификатору.");
@@ -44,7 +47,7 @@ public class Main {
         manager.updateEpic(epic1, epic3);
         System.out.println("Получение списка всех задач после обновления.");
         manager.printTasks();
-        manager.printEpic(epic1);
+        manager.printEpic();
         manager.getEpik();
         System.out.println();
 //        4. Управление статусами
@@ -74,7 +77,7 @@ public class Main {
         manager.changeStatusSubtask(epic1, subtask2);
         System.out.println();
 //      2.6 Удаление по идентификатору.
-        manager.removeTaskById(1);
+        manager.removeTaskById(task1.getId());
         manager.removeSubtaskById(epic1);
         System.out.println("Список задач после удаления по ид");
         manager.printTasks();
