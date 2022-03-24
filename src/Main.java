@@ -37,18 +37,20 @@ public class Main {
         System.out.println();
 //      2.3 Получение по идентификатору.
         System.out.println("Получение по идентификатору.");
-        System.out.println(manager.getTaskById(1));
-        System.out.println(manager.getSubtasks(epic1));
+        System.out.println(manager.getTaskById(task2.id));
+        System.out.println(manager.getEpicById(epic1.id));
+        System.out.println(manager.getSubtaskId(subtask2.id));
         System.out.println();
 //      2.5 Обновление. Новая версия объекта с верным идентификатором передаются в виде параметра.
-        Task task4 = new Task("Новая задача");
+        Task task4 = new Task("Новая задача1");
+        manager.updateTask(task1.id, task4);
         Epic epic3 = new Epic("Новый Эпик1");
-        manager.updateTask(1, task4);
-        manager.updateEpic(epic1, epic3);
+        manager.updateEpic(epic1.getId(), epic3);
+        Subtask subtask5 = new Subtask("Подзадача новая2");
+        manager.updateSubtask(subtask2.getId(), subtask5);
         System.out.println("Получение списка всех задач после обновления.");
         manager.printTasks();
         manager.printEpic();
-        manager.getEpik();
         System.out.println();
 //        4. Управление статусами
 //        4.1 Статус для задач
@@ -78,7 +80,8 @@ public class Main {
         System.out.println();
 //      2.6 Удаление по идентификатору.
         manager.removeTaskById(task1.getId());
-        manager.removeSubtaskById(epic1);
+        manager.removeSubtaskById(subtask3.id);
+        manager.removeEpicById(epic1.getId());
         System.out.println("Список задач после удаления по ид");
         manager.printTasks();
         System.out.println(manager.getEpicLists());

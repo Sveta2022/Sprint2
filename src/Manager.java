@@ -48,7 +48,8 @@ public class Manager {
             }
         }
     }
-//  2.1 Печать списка всех Эпиков
+
+    //  2.1 Печать списка всех Эпиков
     public void printEpic() {
         if (epicLists.isEmpty()) {
             System.out.println("Список пуст");
@@ -77,26 +78,67 @@ public class Manager {
         return task;
     }
 
+    public Epic getEpicById(int id) {
+        Epic epic = epicLists.get(id);
+        return epic;
+    }
+    public Subtask getSubtaskId(int id) {
+        Subtask subtask = subtaskList.get(id);
+        return subtask;
+    }
+
     // 5 - Обновление. Новая версия объекта с верным идентификатором передаются в виде параметра.
     public void updateTask(int id, Task task) {
+
         taskList.put(id, task);
     }
 
-    public void updateEpic(Epic epic1, Epic epic2) {
-        int id = epic1.getId();
-        epic1.setNameTask(epic2.getNameTask());
+    public void updateEpic(int id, Epic epic2) {
+        Epic epic = epicLists.get(id);
+        epic2.setSubtasks(epic.getSubtasks());
+        epic2.setStatus(epic.getStatus());
+        epic2.setDiscriptionTask(epic.getDiscriptionTask());
+        epicLists.put(id,epic2);
     }
-    // 6 - Удаление по идентификатору
 
+    public void updateSubtask(int id, Subtask subtask) {
+        Subtask subtask1 = subtaskList.get(id);
+        int idEpic = subtask1.getEpicId();
+        Epic epic = epicLists.get(idEpic);
+        subtask.setEpicId(subtask1.getEpicId());
+        subtask.setDiscriptionTask(subtask1.getDiscriptionTask());
+        subtask.setStatus(subtask1.getStatus());
+        subtask.setId(subtask1.getId());
+        epic.subtasks.remove(subtask1);
+        epic.subtasks.add(subtask);
+        epicLists.put(idEpic,epic);
+    }
+
+    // 6 - Удаление по идентификатору
     public void removeTaskById(int id) {
         taskList.remove(id);
     }
 
-    public void removeSubtaskById(Epic epic) {
-        epicLists.remove(epic.getId());
+    public void removeSubtaskById(int id) {
+        Subtask subtask1 = subtaskList.get(id);
+        int idEpic = subtask1.getEpicId();
+        Epic epic = epicLists.get(idEpic);
+        epic.subtasks.remove(subtask1);
+        epic.subtasks.remove(subtask1);
+    }
+
+    public void removeEpicById(int id) {
+        Epic epic = epicLists.get(id);
+        epicLists.remove(id);
+        for (Subtask subtask : epic.subtasks) {
+            if(subtask.getEpicId() == id){
+                epic.getSubtasks().remove(epic);
+            }
+        }
     }
 
     public void getStatusTask(Task task) {
+
         System.out.println(task.getStatus());
     }
 
@@ -108,11 +150,6 @@ public class Manager {
         } else {
             task.setStatus(Status.DONE);
         }
-    }
-
-    public ArrayList<Subtask> getSubtasks(Epic epic) {
-        ArrayList<Subtask> subtasks = epic.getSubtasks();
-        return subtasks;
     }
 
     public void getStatusEpic(Epic epic) {
